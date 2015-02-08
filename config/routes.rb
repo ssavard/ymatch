@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   resources :users
   resources :businesses
   resources :reviews
+  resources :matches
+  resources :recommendations
   #get 'users/new'
 
   # The priority is based upon order of creation: first created -> highest priority.

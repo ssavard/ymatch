@@ -13,5 +13,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @relationships = Relationship.where("user_yid = ?", @user.user_yid)
     @reviews = Review.where("user_yid = ?", @user.user_yid)
+    @matches = Match.where("user_yid = ?", @user.user_yid)
+    @recommendations = Recommendation.where("user_yid = ?", @user.user_yid)
   end
 end

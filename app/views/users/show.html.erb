@@ -1,9 +1,9 @@
 <p id="notice"><%= notice %></p>
 
-<p>
+<h3>
   <strong>Name:</strong>
   <%= @user.user_name %>
-</p>
+</h3>
 
 <p>
   <strong>Yelp ID:</strong>
@@ -14,6 +14,115 @@
   <strong>Review:</strong>
   <%= @user.review_count %>
 </p>
+
+<% if @matches.any? %>
+
+  <h3>Matches (<%= @matches.count %>)</h3>
+  
+  <table id="stations" class="table table-bordered table-striped" >
+  <thead>
+    <tr>
+      <th>Fellow</th>
+      <th>Match Score</th>
+      <th>Fellow Reviews</th>
+      <th>Common Reviews</th>
+      <th>Average</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for @match in @matches %>
+    <tr>
+      
+      <td>
+        <% @fellows = User.where("user_yid = ?", @match.fellow_yid) %>
+        <% if @fellows.any? %>
+          <%= link_to @fellows.first.user_name, @fellows.first %>
+        <% else %>
+          <%= @match.fellow_yid %>
+
+        <% end %>
+        
+      </td>
+      <td>
+        <%= @match.match_score.round(2) %>
+      </td>
+      <td>
+        <%= @match.fellow_reviews %>
+      </td>
+      <td>
+        <%= @match.common_review %>
+      </td>
+            <td>
+        <%= @match.average.round(2) %>
+      </td>
+
+      
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>
+
+<% if @recommendations.any? %>
+
+  <h3>Recommendations (<%= @recommendations.count %>)</h3>
+  
+  <table id="stations" class="table table-bordered table-striped" >
+  <thead>
+    <tr>
+      <th>Business</th>
+      <th>Relevance</th>
+      <th>Match Score</th>
+      <th>References</th>
+      <th>Reviews</th>
+      <th>Average Stars</th>
+      <th>Predicted Stars</th>
+      <th>Influencer</th>
+      <th>Influencer Stars</th>
+      <th>Influencer Relevance</th>
+      
+    </tr>
+  </thead>
+  <tbody>
+    <% for @recommendation in @recommendations %>
+    <tr>
+      
+      <td>
+        <% @businesses = Business.where("business_yid = ?", @recommendation.business_yid) %>
+        <% if @businesses.any? %>
+          <%= link_to @businesses.first.name, @businesses.first %>
+        <% else %>
+          <%= @recommendation.business_yid %>
+
+        <% end %>
+        
+      </td>
+      <td> <%= @recommendation.relevance.round(2) %> </td>
+      <td> <%= @recommendation.match_score.round(2) %> </td>
+      <td> <%= @recommendation.references %> </td>
+      <td> <%= @recommendation.reviews %> </td>
+      <td> <%= @recommendation.average_stars.round(2) %> </td>
+      <td> <%= @recommendation.predicted_stars.round(2) %> </td>
+      <td>
+        <% @influencers = User.where("user_yid = ?", @recommendation.reviewer_id) %>
+        <% if @influencers.any? %>
+          <%= link_to @influencers.first.user_name, @influencers.first %>
+        <% else %>
+          <%= @recommendation.reviewer_id %>
+
+        <% end %>
+        
+      </td>
+      <td> <%= @recommendation.reviewer_stars.round(2) %> </td>
+      <td> <%= @recommendation.reviewer_relevance.round(2) %> </td>
+      
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>
+
+
 
 <% if @relationships.any? %>
 

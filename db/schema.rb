@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150208014959) do
+ActiveRecord::Schema.define(version: 20150208204310) do
 
   create_table "businesses", force: :cascade do |t|
     t.string   "business_yid"
@@ -28,6 +28,39 @@ ActiveRecord::Schema.define(version: 20150208014959) do
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
   end
+
+  create_table "matches", force: :cascade do |t|
+    t.string   "user_yid"
+    t.string   "fellow_yid"
+    t.decimal  "match_score"
+    t.integer  "fellow_reviews"
+    t.integer  "common_review"
+    t.decimal  "average"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "matches", ["fellow_yid"], name: "index_matches_on_fellow_yid"
+  add_index "matches", ["user_yid"], name: "index_matches_on_user_yid"
+
+  create_table "recommendations", force: :cascade do |t|
+    t.string   "user_yid"
+    t.string   "business_yid"
+    t.decimal  "relevance"
+    t.decimal  "match_score"
+    t.integer  "references"
+    t.integer  "reviews"
+    t.decimal  "average_stars"
+    t.decimal  "predicted_stars"
+    t.string   "reviewer_id"
+    t.integer  "reviewer_stars"
+    t.decimal  "reviewer_relevance"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
+  add_index "recommendations", ["business_yid"], name: "index_recommendations_on_business_yid"
+  add_index "recommendations", ["user_yid"], name: "index_recommendations_on_user_yid"
 
   create_table "relationships", force: :cascade do |t|
     t.string   "user_yid"

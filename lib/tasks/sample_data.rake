@@ -47,7 +47,13 @@ namespace :db do
         
         
       end
-    end    
+    end
+    CSV.foreach("/Users/ssavard/Documents/Yelp/Hackathon/fran/fellows.csv") do |row|
+      Match.create(:user_yid => row[0], :fellow_yid => row[1], :match_score => row[2], :fellow_reviews => row[3], :common_review => row[4], :average => row[5])
+    end
+    CSV.foreach("/Users/ssavard/Documents/Yelp/Hackathon/fran/businesses.csv") do |row|
+      Recommendation.create(:user_yid => row[0], :business_yid => row[1], :relevance => row[2], :references => row[3], :match_score => row[4], :reviews => row[5], :average_stars => row[6], :predicted_stars => row[7], :reviewer_id => row[8], :reviewer_stars => row[9], :reviewer_relevance => row[10])
+    end
   end
 end
 
