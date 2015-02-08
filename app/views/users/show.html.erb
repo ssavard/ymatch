@@ -1,0 +1,65 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @user.user_name %>
+</p>
+
+<p>
+  <strong>Yelp ID:</strong>
+  <%= @user.user_yid %>
+</p>
+
+<p>
+  <strong>Review:</strong>
+  <%= @user.review_count %>
+</p>
+
+<% if @relationships.any? %>
+
+  <h3>Friends (<%= @relationships.count %>)</h3>
+  
+  <table id="stations" class="table table-bordered table-striped" >
+  <thead>
+    <tr>
+      <th>Friend</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    <% for @relationship in @relationships %>
+    <tr>
+      
+      <td>
+        <% @friends = User.where("user_yid = ?", @relationship.friend_yid) %>
+        <% if @friends.any? %>
+          <%= link_to @friends.first.user_name, @friends.first %>
+        <% else %>
+          <%= @relationship.friend_yid %>
+
+        <% end %>
+        
+      </td>
+      
+      
+      
+      
+      
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>
+
+<% if @reviews.any? %>
+  <h3>Reviews (<%= @reviews.count %>)</h3>
+  <% for @review in @reviews %>
+    <% @business =  Business.find_by(business_yid: @review.business_yid) %>
+    <h5><%= link_to @business.name, @business %></h5>
+    <p><%= @review.text %></p>
+  <% end %>
+<% end %>
+
+<%= link_to 'Back', users_path %>
+
+

@@ -1,0 +1,27 @@
+<p>
+
+</p>
+
+
+<p>
+  <strong>Name:</strong>
+  <%= @business.name %>
+</p>
+
+<p>
+  <strong>Yelp ID:</strong>
+  <%= @business.business_yid %>
+</p>
+
+<% if @reviews.any? %>
+  <h3>Reviews (<%= @reviews.count %>)</h3>
+  <% for @review in @reviews %>
+    <% @user =  User.find_by(user_yid: @review.user_yid) %>
+    <h5><%= link_to @user.user_name, @user %></h5>
+    <p><%= @review.text %></p>
+  <% end %>
+<% end %>
+
+<%= link_to 'Back', businesses_path %>
+
+

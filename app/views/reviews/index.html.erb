@@ -1,0 +1,21 @@
+<h1>Reviews</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Review</th>
+      
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @reviews.each do |review| %>
+      <tr>
+        <td><%= review.text %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+

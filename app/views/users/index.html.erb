@@ -1,0 +1,38 @@
+<h1>Users </h1>
+
+<%= search_form_for @q do |f| %>
+  <div class="field" style='width: 180px'>
+    <%= f.label :user_name_cont, "Name contains" %>
+    <%= f.text_field :user_name_cont %>
+  </div>
+  <div class="actions"><%= f.submit "Search" %></div>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Reviews</th>
+      <th>Avr. Stars</th>
+      <th>Elite</th>
+      <th>Yelp Since</th>
+      <th>Fans</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= link_to user.user_name, user %></td>
+        <td><%= user.review_count %></td>
+        <td><%= user.average_stars.round(1) %></td>
+        <td><%= user.elite %></td>
+        <td><%= user.yelping_since %></td>
+        <td><%= user.fans %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+

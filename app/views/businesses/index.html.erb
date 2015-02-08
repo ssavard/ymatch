@@ -1,0 +1,22 @@
+<h1>Businesses </h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>City</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @businesses.each do |business| %>
+      <tr>
+        <td><%= link_to business.name, business %></td>
+        <td><%= business.city %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
